@@ -158,8 +158,11 @@ def event_handle(event):
         elif (msg == "ปลาอะไรใหญ่กว่าปลาหยุด") :
             replyObj = TextSendMessage(text="ปลาหยุดชุปแป้งทอด ผ่ามพาม")
         else :
-            replyObj = TextSendMessage(text=msg)
-        line_bot_api.reply_message(rtoken, replyObj)
+            headers = request.headers
+            json_headers = ({k:v for k, v in headers.items()})
+            json_headers.update({'Host':'bots.dialogflow.com'})
+            url = "https://dialogflow.cloud.google.com/v1/integrations/line/webhook/94cfa2ed-569b-426a-a173-579e8ab1c0fc"
+            requests.post(url,data=json_line, headers=json_headers)
     elif msgType == "image":
         try:
             message_content = line_bot_api.get_message_content(event['message']['id'])
