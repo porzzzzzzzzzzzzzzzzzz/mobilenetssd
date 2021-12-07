@@ -108,7 +108,7 @@ def callback():
     no_event = len(decoded['events'])
     for i in range(no_event):
             event = decoded['events'][i]
-            event_handle(event)
+            event_handle(event,json_line)
 
     # เชื่อมต่อกับ dialogflow
     #intent = decoded["queryResult"]["intent"]["displayName"] 
@@ -125,7 +125,7 @@ def reply(intent,text,reply_token,id,disname):
     line_bot_api.reply_message(reply_token,text_message)
 
 def event_handle(event):
-    print(event)
+    print(event,json_line)
     try:
         userId = event['source']['userId']
     except:
